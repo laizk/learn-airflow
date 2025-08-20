@@ -1,2 +1,5 @@
 /py_env
 /.venv
+simple_auth_manager_passwords*
+/logs
+/logs/*
