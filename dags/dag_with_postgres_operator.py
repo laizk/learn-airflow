@@ -13,7 +13,7 @@ default_args = {
 }
 
 with DAG(
-    dag_id='dag_with_postgres_operator_v02',
+    dag_id='dag_with_postgres_operator_v03',
     default_args=default_args,
     description='A DAG with a Postgres operator',
     start_date=datetime(2025, 7, 1),
@@ -40,4 +40,13 @@ with DAG(
         """
     )
     
-    task1 >> task2
+    task3 = SQLExecuteQueryOperator(
+        task_id='delete_data_from_table',
+        conn_id='postgres_localhost',
+        sql="""
+            DELETE FROM dag_runs
+            WHERE dt = '{{ ds }}' AND dag_id = '{{ dag.dag_id }}';
+        """
+    )    
+    
+    task1 >> task3 >> task2
