@@ -3,3 +3,15 @@
 simple_auth_manager_passwords*
 /logs
 /logs/*
+
+.env
+
+*.pyc
+__pycache__/
+airflow.cfg
+*.db
+*.sqlite
+*.log
+*.pid
+*.pyo
+*.pyd
