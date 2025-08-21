@@ -9,7 +9,7 @@ default_args = {
 }
 
 with DAG(
-    dag_id='our_first_dag4',
+    dag_id='our_first_dag5',
     description='A simple DAG for demonstration purposes',
     start_date=datetime(2021, 7, 29, 2),
     schedule='@daily',
@@ -30,7 +30,13 @@ with DAG(
         bash_command='echo this is the third task, it runs at the same time as the second task',
     )
     
+    # Task dependency method 1
     # task1.set_downstream(task2)
     # task1.set_downstream(task3)
-    task1 >> task2
-    task1 >> task3
+    
+    # Task dependency method 2
+    # task1 >> task2
+    # task1 >> task3
+    
+    # Task dependency method 3
+    task1 >> [task2, task3]
