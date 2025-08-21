@@ -9,7 +9,7 @@ default_args = {
 }
 
 with DAG(
-    dag_id='our_first_dag',
+    dag_id='our_first_dag2',
     description='A simple DAG for demonstration purposes',
     start_date=datetime(2021, 7, 29, 2),
     schedule='@daily',
@@ -20,5 +20,10 @@ with DAG(
         bash_command='echo hello world, this is the first task'
     )
     
-    task1
+    task2 = BashOperator(
+        task_id='second_task',
+        bash_command='echo this is the second task, it runs after the first task',
+    )
+    
+    task1.set_downstream(task2)
 
