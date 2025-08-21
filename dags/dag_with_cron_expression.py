@@ -10,10 +10,10 @@ default_args = {
 
 with DAG(
     default_args=default_args,
-    dag_id='dag_with_cron_expression_v03',
+    dag_id='dag_with_cron_expression_v04',
     description='A DAG with a cron expression schedule',
     start_date=datetime(2025, 7, 1),
-    schedule='0 3 * * Tue',  # This cron expression means the DAG will run daily at midnight
+    schedule='0 3 * * Tue-Fri',  # This cron expression means the DAG will run daily at midnight
     catchup=True
     
 ) as dag:
