@@ -13,7 +13,7 @@ default_args = {
 }
 
 with DAG(
-    dag_id='dag_with_postgres_operator_v01',
+    dag_id='dag_with_postgres_operator_v02',
     default_args=default_args,
     description='A DAG with a Postgres operator',
     start_date=datetime(2025, 7, 1),
@@ -31,4 +31,13 @@ with DAG(
         """
     )
     
-    task1
+    task2 = SQLExecuteQueryOperator(
+        task_id='insert_into_table',
+        conn_id='postgres_localhost',
+        sql="""
+            INSERT INTO dag_runs (dt, dag_id)
+            VALUES ('{{ ds }}', '{{ dag.dag_id }}')
+        """
+    )
+    
+    task1 >> task2
